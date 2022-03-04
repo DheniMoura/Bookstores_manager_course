@@ -1,6 +1,7 @@
 package com.dhenifer.bookstoresmanager.utils;
 
 import com.dhenifer.bookstoresmanager.dto.BookDTO;
+import com.dhenifer.bookstoresmanager.entity.Book;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -20,6 +21,18 @@ public class BookUtils {
                 .isbn("0-596-52068-9")
                 .publisherName(faker.book().publisher())
                 .author(AuthorUtils.createFakeAuthorDTO())
+                .build();
+    }
+
+    public static Book createFakeBook(){
+        return Book.builder()
+                .id(faker.number().randomNumber())
+                .name(faker.book().title())
+                .pages(faker.number().numberBetween(0, 200))
+                .chapters(faker.number().numberBetween(1, 20))
+                .isbn("0-596-52068-9")
+                .publisherName(faker.book().publisher())
+                .author(AuthorUtils.createFakeAuthor())
                 .build();
     }
 
