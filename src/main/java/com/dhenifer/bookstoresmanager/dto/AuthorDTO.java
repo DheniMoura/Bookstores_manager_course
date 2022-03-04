@@ -1,33 +1,36 @@
-package com.dhenifer.bookstoresmanager.entity;
+package com.dhenifer.bookstoresmanager.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Author {
+public class AuthorDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank
+    @Size(max = 200)
     private String name;
 
-    @Column(nullable = false)
-    private  Integer age;
+    @NotNull
+    @Size(max = 100)
+    private Integer age;
 
+    /*
     public Long getId() {
         return id;
     }
-/*  public void setId(Long id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,10 +50,9 @@ public class Author {
         this.age = age;
     }
 
-    public static Author builder(){
-        return new Author();
+    public static AuthorDTO builder(){
+        return new AuthorDTO();
     }
     */
 
 }
-
