@@ -4,6 +4,7 @@ package com.dhenifer.bookstoresmanager.controller;
 import com.dhenifer.bookstoresmanager.dto.BookDTO;
 import com.dhenifer.bookstoresmanager.dto.MessageResponseDTO;
 import com.dhenifer.bookstoresmanager.entity.Book;
+import com.dhenifer.bookstoresmanager.exception.BookNotFoundException;
 import com.dhenifer.bookstoresmanager.repository.BookRepository;
 import com.dhenifer.bookstoresmanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public BookDTO findById(@PathVariable Long id) {
+    public BookDTO findById(@PathVariable Long id) throws BookNotFoundException {
         return bookService.findById(id);
     }
 }

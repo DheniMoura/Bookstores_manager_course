@@ -2,6 +2,7 @@ package com.dhenifer.bookstoresmanager.service;
 
 import com.dhenifer.bookstoresmanager.dto.BookDTO;
 import com.dhenifer.bookstoresmanager.entity.Book;
+import com.dhenifer.bookstoresmanager.exception.BookNotFoundException;
 import com.dhenifer.bookstoresmanager.repository.BookRepository;
 import com.dhenifer.bookstoresmanager.utils.BookUtils;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +29,7 @@ public class BookServiceTest {
     private BookService bookService;
 
     @Test
-    void WhenGivenExistingIdThenReturnThisBook() {
+    void WhenGivenExistingIdThenReturnThisBook() throws BookNotFoundException {
        Book expectedFoundBook = createFakeBook();
 
         when(bookRepository.findById(expectedFoundBook.getId())).thenReturn(Optional.of(expectedFoundBook));
@@ -38,5 +39,14 @@ public class BookServiceTest {
         assertEquals(expectedFoundBook.getName(), bookDTO.getName());
         assertEquals(expectedFoundBook.getIsbn(), bookDTO.getIsbn());
         assertEquals(expectedFoundBook.getPublisherName(), bookDTO.getPublisherName());
+    }
+
+    @Test
+    void whenGivenUnexistingIdThenNotFindThrowAnException() {
+        var invalidId = 10L;
+        when(bookRepository.findById(invalidId))
+                .thenReturn(Optional.ofNullable(any(Book.class)));
+
+        assertThrows(BookNotFoundException.class, () -> bookService.findById(invalidId));
     }
 }
