@@ -1,7 +1,6 @@
 package com.dhenifer.bookstoresmanager.utils;
 
 import com.dhenifer.bookstoresmanager.dto.AuthorDTO;
-import com.dhenifer.bookstoresmanager.dto.BookDTO;
 import com.dhenifer.bookstoresmanager.entity.Author;
 import com.github.javafaker.Faker;
 
@@ -22,6 +21,14 @@ public class AuthorUtils {
                .id(faker.number().randomNumber())
                .name(faker.book().author())
                .age(faker.number().numberBetween(0,100))
+               .build();
+   }
+
+   public static Author createFakeAuthorFrom(AuthorDTO authorDTO){
+       return Author.builder()
+               .id(authorDTO.getId())
+               .name(authorDTO.getName())
+               .age(authorDTO.getAge())
                .build();
    }
 }

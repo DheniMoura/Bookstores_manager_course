@@ -44,6 +44,7 @@ public class BookServiceTest {
     @Test
     void whenGivenUnexistingIdThenNotFindThrowAnException() {
         var invalidId = 10L;
+
         when(bookRepository.findById(invalidId))
                 .thenReturn(Optional.ofNullable(any(Book.class)));
 

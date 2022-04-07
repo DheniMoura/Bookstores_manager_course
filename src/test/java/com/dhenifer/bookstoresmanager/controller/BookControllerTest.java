@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import static com.dhenifer.bookstoresmanager.utils.BookUtils.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -52,7 +52,7 @@ public class BookControllerTest {
         BookDTO bookDTO = createFakeBookDTO();
         MessageResponseDTO expectedMessageResponse = MessageResponseDTO.builder()
                 .message("Book created with ID " + bookDTO.getId())
-                //.build()
+                .build()
                 ;
 
         when(bookService.create(bookDTO)).thenReturn(expectedMessageResponse);
@@ -68,12 +68,11 @@ public class BookControllerTest {
     @Test
     void testWhenPostWithInvalidISBNIsCalledThenBadRequestShouldBeCreated() throws Exception {
         BookDTO bookDTO = createFakeBookDTO();
-        bookDTO.setIsbn("Invalid ISBN");
+        bookDTO.setIsbn("invalid isbn");
 
         mockMvc.perform(post(BOOK_API_URL_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(bookDTO)))
-                .andExpect(status().isBadRequest());
-
+                        .andExpect(status().isBadRequest());
     }
 }
